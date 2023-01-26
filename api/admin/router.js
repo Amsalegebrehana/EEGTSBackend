@@ -5,4 +5,9 @@ const express = require("express");
 const router = express.Router();
 
 // controller
-// const userController = require("./controller");
+const adminController = require("./controller");
+
+router.route("/").post(adminController.createAdmin).get(adminController.getAllAdmin);
+router.route("/login").post(adminController.adminLogin);
+
+module.exports = router;
