@@ -19,11 +19,13 @@ model Admin {
 
 model Pool {
   id        String            @id @default(uuid())
-  name      String
+  name      String    @unique
   numberOfQuestions Int  @default(0)
   Contributors Contributors []
   Exam Exam []
   Questions Questions []
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model ExamGroup {
@@ -31,6 +33,8 @@ model ExamGroup {
   name      String
   Exam  Exam []
   TestTakers TestTakers []
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model Contributors{
@@ -43,7 +47,8 @@ model Contributors{
   questionsRemaining  Int @default(0) 
   reviewsRemaining    Int @default(0) 
   Questions Questions []
-
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model Exam {
@@ -60,7 +65,8 @@ model Exam {
   Questions         Questions []
   TestTakerResponse TestTakerResponse[]
   Grades            Grades []
-
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model TestTakers{
@@ -72,6 +78,8 @@ model TestTakers{
   examGroup  ExamGroup @relation(fields: [examGroupId], references: [id])
   TestTakerResponse TestTakerResponse [] 
   Grades Grades []
+  createdAt        DateTime           @default(now())
+ 
 }
 
 model Choice{
@@ -82,7 +90,8 @@ model Choice{
   questions  Questions @relation(fields: [questionId], references: [id])
   QuestionAnswer QuestionAnswer []
   TestTakerResponse TestTakerResponse ?
-
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model QuestionAnswer{
@@ -91,6 +100,8 @@ model QuestionAnswer{
   questions  Questions @relation(fields: [questionId], references: [id])
   choiceId String
   choice Choice @relation(fields: [choiceId], references: [id])
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model Questions{
@@ -107,7 +118,8 @@ model Questions{
   choices Choice []
   QuestionAnswer QuestionAnswer []
   TestTakerResponse TestTakerResponse[]
-
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model TestTakerResponse {
@@ -120,7 +132,8 @@ model TestTakerResponse {
   exam      Exam @relation(fields: [examId], references: [id])
   choiceId String @unique
   choice Choice @relation(fields: [choiceId], references: [id])
-
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
 
 model Grades {
@@ -130,5 +143,6 @@ model Grades {
   testTakers TestTakers @relation(fields: [testTakerId], references: [id])
   examId String 
   exam     Exam @relation(fields: [examId], references: [id])
-
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 }
