@@ -7,8 +7,12 @@ const router = express.Router();
 // controller
 const poolController = require("./controller");
 
+
 router.route("/").post(poolController.createPool);
- 
-router.route("/:name").get(poolController.getPoolByName);
+
+router.route("/:id").get(poolController.getPoolById);
+
+router.route("/search/:name").get(poolController.getPoolByName);
+
 
 module.exports = router;
