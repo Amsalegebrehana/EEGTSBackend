@@ -51,3 +51,25 @@ exports.getPoolByName = async (req, res, next) =>{
         next(error)
     }
 }
+
+// fetch pool by Id
+
+exports.getPoolById = async (req, res, next) =>{
+    try {
+        const poolId = req.params.id;
+
+        const pool = await Pool.getPoolById(poolId);
+    
+        if (!pool){
+            return next(new AppError("Pool does not exist.", 400));
+        }
+
+         // response
+         res.status(200).json({
+            success:true,
+            data: { pool }
+        });
+    } catch (error) {
+        next(error);
+    }
+}

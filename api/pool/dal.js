@@ -27,10 +27,25 @@ class Pool{
             
             const pool = await prisma.pool.findUnique({
                 where :{
-                    name
+                   name: name
                 }
             });
             return pool
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async getPoolById(poolId){
+        try {
+             
+            const pool = await prisma.pool.findUnique({
+                where: {
+                     id : poolId
+                    }
+            });
+         
+            return pool;
         } catch (error) {
             throw error;
         }

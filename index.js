@@ -1,14 +1,18 @@
 
 
-const express = require("express")
+const express = require("express");
 
-const app = express()
+const cors = require('cors');
 
+const app = express();
+
+app.use(cors())
 // Routers
 const adminRouter = require("./api/admin/router");
 const poolRouter = require("./api/pool/router")
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/pool", poolRouter);
