@@ -12,6 +12,8 @@ router.route("/").post(poolController.createPool);
 
 router.route("/:id").get(poolController.getPoolById);
 
+router.route("/").get(poolController.getPools);
+
 router.route("/search/:name").get(poolController.getPoolByName);
 
 

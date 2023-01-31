@@ -50,6 +50,17 @@ class Pool{
             throw error;
         }
     }
+
+    static async getPools(){
+        try{
+
+            const pools = await prisma.pool.find();
+
+            return pools;
+        } catch(error){
+            throw error;
+        }
+    }
 }
 
 module.exports = Pool;
