@@ -54,7 +54,7 @@ class Pool{
     static async getPools(){
         try{
 
-            const pools = await prisma.pool.find();
+            const pools = await prisma.pool.findMany();
 
             return pools;
         } catch(error){
