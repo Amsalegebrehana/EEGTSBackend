@@ -93,4 +93,38 @@ exports.getPoolById = async (req, res, next) =>{
     } catch(error){
         next(error);
     }
- }
+ };
+
+//  update pool
+
+exports.updatePool = async (req, res, next) =>{
+    try {
+        
+        const poolId = req.params.id;
+        const data = req.body;
+      
+        // find pool
+        const pool = await Pool.getPoolById(poolId);
+        
+        // check pool existance
+        if (!pool){
+            return next(new AppError("Pool does not exist.", 400));
+        }
+        // empty data
+        if(Object.keys(data).length === 0){
+            return next(new AppError("Provide data to update.", 400));
+        }
+        // dal
+        const updatedPool = await Pool.updatePool(poolId, data);
+
+        // response
+        res.status(200).json({
+            success:true,
+            message: "updated successfully",
+            data: { updatedPool }
+        });
+
+    } catch (error) {
+        next(error)
+    }
+}

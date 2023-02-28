@@ -92,6 +92,11 @@ exports.getAdminById = async(req, res, next) => {
 
     const admin = await Admin.getAdmin(id);
 
+    // no admin
+    if(!admin){
+      return next(new AppError("There is no admin with the provided id", 400));
+    }
+
     // response
     res.status(200).json({
       success:true,
