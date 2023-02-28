@@ -61,6 +61,22 @@ class Pool{
             throw error;
         }
     }
+    // update
+    static async updatePool(poolId, data){
+        try {
+
+            const pool = await prisma.pool.update({
+                where:{
+                    id: poolId
+                },
+                data:data
+            });
+            
+            return pool;
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = Pool;

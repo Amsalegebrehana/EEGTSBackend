@@ -10,7 +10,7 @@ const poolController = require("./controller");
 
 router.route("/").post(poolController.createPool);
 
-router.route("/:id").get(poolController.getPoolById);
+router.route("/:id").get(poolController.getPoolById).patch(poolController.updatePool);
 
 router.route("/").get(poolController.getPools);
 
