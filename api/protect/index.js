@@ -17,6 +17,7 @@ module.exports = async(req, res, next) =>{
     
         let token = "";
           // Check header
+        let user = ""
         if (
             req.headers.authorization &&
             req.headers.authorization.split(" ")[0] === "Bearer"
@@ -28,8 +29,18 @@ module.exports = async(req, res, next) =>{
         if (!token) return next(new AppError("Please login", 400));
 
 
-        const decode = jwt.verify(token, process.env.JWT_SECRET);
+        const decodedata = jwt.verify(token, process.env.JWT_SECRET);
+        if (decodedata.type == "admin"){
+            // get admin
+            const admin = await Admin.getAdmin(decodedata.id);
 
+            if (!admin) return next(new AppError("Admin does not exists", 400));
+        user = admin
+        };
+
+        req.user = user;
+        // to next middleware
+        next();
     } catch (error) {
         next(error);
     }

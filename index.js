@@ -21,4 +21,4 @@ app.use("/api/v1/pool", poolRouter);
 
 app.listen(3000, () =>
   console.log('listening 3000'),
-)
+);
