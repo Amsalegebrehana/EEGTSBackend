@@ -51,7 +51,7 @@ exports.adminLogin = async (req, res, next) => {
       const admin = await Admin.adminLogin({ email, password });
       
       // Create token
-      const token = jwt.sign({ id: admin.id}, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: admin.id, type: "admin"}, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
   
@@ -83,3 +83,23 @@ exports.getAllAdmin = async (req, res, next) => {
         next(error)
     }
 }
+// get admin by id
+
+exports.getAdminById = async(req, res, next) => {
+  try {
+   
+    const id = req.params.id;
+
+    const admin = await Admin.getAdmin(id);
+
+    // response
+    res.status(200).json({
+      success:true,
+      data: {admin},
+     
+  })
+  } catch (error) {
+    next(error);
+    
+  }
+};

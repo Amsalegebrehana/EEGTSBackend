@@ -53,6 +53,23 @@ class Admin{
         throw error;
         }
     }
+    // single admin
+    static async getAdmin(id){
+        try {
+            
+            const admin = await prisma.admin.findUnique({
+                where:{
+                    id
+                }
+            });
+
+           return admin;
+
+        } catch (error) {
+            throw(error);
+            
+        }
+    }
 }
 
 module.exports = Admin;
